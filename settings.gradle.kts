@@ -1,4 +1,4 @@
-rootProject.name = "KMPTemplate"
+rootProject.name = "Enzo"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
