@@ -27,14 +27,14 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "ComposeApp"
+            baseName = "Shared"
             isStatic = true
         }
     }
     
     jvm("desktop")
     
-    @OptIn(ExperimentalWasmDsl::class)
+    /*@OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         moduleName = "composeApp"
         browser {
@@ -49,6 +49,15 @@ kotlin {
                         add(projectDirPath)
                     }
                 }
+            }
+        }
+        binaries.executable()
+    }*/
+
+    js(IR) {
+        browser {
+            commonWebpackConfig {
+                outputFileName = "composeApp.js"
             }
         }
         binaries.executable()
@@ -88,7 +97,6 @@ kotlin {
             // Dependency Injection (Koin)
             api(libs.koin.core)
             implementation(libs.koin.compose)
-            implementation(libs.koin.compose.viewmodel)
         }
 
         androidMain.dependencies {
@@ -101,6 +109,7 @@ kotlin {
             // Dependency Injection (Koin - Android Related)
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
+            implementation(libs.koin.compose.viewmodel)
         }
 
 
@@ -114,12 +123,13 @@ kotlin {
             }
         }
 
-        /*val wasmJsMain by getting {
-            dependencies {
-                // Ktor client - Web
-                implementation(libs.ktor.client.js)
-            }
-        }*/
+        jsMain.dependencies {
+            // Ktor client - Web
+            implementation(libs.ktor.client.js)
+
+            // Core dependency
+            implementation(compose.html.core)
+        }
     }
 }
 
