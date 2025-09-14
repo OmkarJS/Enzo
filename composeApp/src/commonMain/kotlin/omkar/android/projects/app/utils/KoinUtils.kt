@@ -1,6 +1,6 @@
 package omkar.android.projects.app.utils
 
-import omkar.android.projects.di.commonModule
+import omkar.android.projects.app.di.commonModule
 import org.koin.core.context.startKoin
 
 object KoinUtils {

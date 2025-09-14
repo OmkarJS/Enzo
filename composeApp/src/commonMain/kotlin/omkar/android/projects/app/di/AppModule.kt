@@ -1,4 +1,4 @@
-package omkar.android.projects.di
+package omkar.android.projects.app.di
 
 
 import omkar.android.projects.data.remote.ExampleClient
