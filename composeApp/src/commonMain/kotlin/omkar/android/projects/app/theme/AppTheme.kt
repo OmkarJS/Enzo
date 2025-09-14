@@ -1,9 +1,9 @@
 package omkar.android.projects.app.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
@@ -48,9 +48,8 @@ val DarkColorScheme = ThemeColors(
     onSurface = Color(0xFFFFFFFF) // White text on surface
 )
 
-fun ThemeColors.toColors() = lightColors(
+fun ThemeColors.toColors() = lightColorScheme(
     primary = primary,
-    primaryVariant = primaryVariant,
     secondary = secondary,
     background = background,
     surface = surface,
@@ -60,9 +59,8 @@ fun ThemeColors.toColors() = lightColors(
     onSurface = onSurface
 )
 
-fun ThemeColors.toDarkColors() = darkColors(
+fun ThemeColors.toDarkColors() = darkColorScheme(
     primary = primary,
-    primaryVariant = primaryVariant,
     secondary = secondary,
     background = background,
     surface = surface,
@@ -84,7 +82,7 @@ fun AppTheme(
 
     CompositionLocalProvider(LocalAppColors provides colors) {
         MaterialTheme(
-            colors = materialColors,
+            colorScheme = materialColors,
             content = content
         )
     }
