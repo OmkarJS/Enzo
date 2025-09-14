@@ -1,13 +1,13 @@
-package omkar.android.projects.data.remote
+package omkar.android.projects.app.expectuals
 
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.android.Android
+import io.ktor.client.engine.darwin.Darwin
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 actual class HttpClientEngine {
-    actual fun create(): HttpClient = HttpClient(Android) {
+    actual fun create(): HttpClient = HttpClient(Darwin) {
         install(ContentNegotiation) {
             json(Json {
                 prettyPrint = true

@@ -1,4 +1,4 @@
-package omkar.android.projects.data.remote
+package omkar.android.projects.app.expectuals
 
 import io.ktor.client.HttpClient
 

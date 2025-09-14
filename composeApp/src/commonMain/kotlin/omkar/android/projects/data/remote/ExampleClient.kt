@@ -9,8 +9,8 @@ import io.ktor.http.contentType
 import omkar.android.projects.app.constants.Constants
 import omkar.android.projects.data.model.ExampleRequest
 import omkar.android.projects.data.model.ExampleResponse
-import omkar.android.projects.data.remote.util.ApiResponseWrapper
-import omkar.android.projects.data.remote.util.handleApiCall
+import omkar.android.projects.app.utils.ApiResponseWrapper
+import omkar.android.projects.app.utils.handleApiCall
 
 class ExampleClient(
     private val httpClient: HttpClient

@@ -2,7 +2,7 @@ package omkar.android.projects.app.di
 
 
 import omkar.android.projects.data.remote.ExampleClient
-import omkar.android.projects.data.remote.HttpClientEngine
+import omkar.android.projects.app.expectuals.HttpClientEngine
 import omkar.android.projects.data.repository.ExampleRepositoryImpl
 import omkar.android.projects.domain.repository.ExampleRepository
 import omkar.android.projects.domain.usecases.ExampleUseCase

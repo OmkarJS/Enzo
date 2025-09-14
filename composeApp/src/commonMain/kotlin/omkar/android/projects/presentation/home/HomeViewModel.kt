@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import omkar.android.projects.data.remote.util.ApiResponseWrapper
+import omkar.android.projects.app.utils.ApiResponseWrapper
 import omkar.android.projects.domain.usecases.ExampleUseCase
 import omkar.android.projects.app.expectuals.getViewModelScope
 

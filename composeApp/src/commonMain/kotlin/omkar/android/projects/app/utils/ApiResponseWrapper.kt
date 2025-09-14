@@ -1,4 +1,4 @@
-package omkar.android.projects.data.remote.util
+package omkar.android.projects.app.utils
 
 import co.touchlab.kermit.Logger
 import io.ktor.client.plugins.ClientRequestException
