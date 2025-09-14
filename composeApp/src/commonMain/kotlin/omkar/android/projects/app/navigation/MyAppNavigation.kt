@@ -1,4 +1,4 @@
-package omkar.android.projects.presentation.navigation
+package omkar.android.projects.app.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
