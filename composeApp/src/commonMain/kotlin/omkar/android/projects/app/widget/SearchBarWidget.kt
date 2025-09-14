@@ -8,13 +8,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -103,12 +103,14 @@ fun SearchBarWidget(
                 }
             }
         },
-        colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = colors.background,
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = colors.background,
+            unfocusedContainerColor = colors.background,
             cursorColor = colors.primary,
             focusedIndicatorColor = colors.grey,
             unfocusedIndicatorColor = colors.grey,
-            textColor = colors.black
+            focusedTextColor = colors.black,
+            unfocusedTextColor = colors.black
         )
     )
 }

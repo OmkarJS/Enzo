@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
-    <string name="hello_world">Hello World</string>
+    // Common
+    <string name="app_name">Enzo</string>
+
 </resources>

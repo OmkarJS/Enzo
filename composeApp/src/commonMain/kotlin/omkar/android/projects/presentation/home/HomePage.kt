@@ -1,11 +1,9 @@
 package omkar.android.projects.presentation.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -14,8 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import omkar.android.projects.app.widget.HomeRoofView
-import omkar.android.projects.app.navigation.Screens
 import omkar.android.projects.app.theme.LocalAppColors
 import org.koin.compose.koinInject
 
@@ -28,44 +24,19 @@ fun HomePage() {
     // Search
     var searchText by remember { mutableStateOf("") }
     var isSearching by remember { mutableStateOf(false) }
-    val exampleState by homeViewModel.exampleState.collectAsState()
 
     fun hideSearchSuggestion() {
         searchText = ""
         isSearching = false
     }
 
-    Scaffold(
-        topBar = {
-            HomeRoofView(
-                isSearching = isSearching,
-                searchText = searchText,
-                onTextChange = {
-                    searchText = it
-                },
-                onSearchClick = { searchQuery ->
-                    hideSearchSuggestion()
-                },
-                onSearchBarClick = {
-                    isSearching = true
-                },
-                onProfileClick = {
-                    navigator.push(Screens.ProfilePage)
-                },
-                onCloseSearch = {
-                    hideSearchSuggestion()
-                }
-            )
-        }
-    ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(colors.primary),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
 
-        }
     }
 }
 
