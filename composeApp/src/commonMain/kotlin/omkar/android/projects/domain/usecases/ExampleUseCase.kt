@@ -1,7 +1,7 @@
 package omkar.android.projects.domain.usecases
 
 import omkar.android.projects.data.model.ExampleResponse
-import omkar.android.projects.data.remote.util.ApiResponseWrapper
+import omkar.android.projects.app.utils.ApiResponseWrapper
 import omkar.android.projects.domain.repository.ExampleRepository
 
 class ExampleUseCase(

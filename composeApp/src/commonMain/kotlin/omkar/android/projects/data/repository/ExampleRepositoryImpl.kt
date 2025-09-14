@@ -2,7 +2,7 @@ package omkar.android.projects.data.repository
 
 import omkar.android.projects.data.model.ExampleResponse
 import omkar.android.projects.data.remote.ExampleClient
-import omkar.android.projects.data.remote.util.ApiResponseWrapper
+import omkar.android.projects.app.utils.ApiResponseWrapper
 import omkar.android.projects.domain.repository.ExampleRepository
 
 class ExampleRepositoryImpl(
