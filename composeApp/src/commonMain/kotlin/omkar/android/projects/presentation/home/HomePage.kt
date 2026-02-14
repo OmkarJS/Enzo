@@ -1,42 +1,56 @@
 package omkar.android.projects.presentation.home
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
+import androidx.compose.ui.graphics.Color
 import omkar.android.projects.app.theme.LocalAppColors
+import omkar.android.projects.app.widget.icon.CustomIcon
 import org.koin.compose.koinInject
+import org.koin.core.annotation.KoinExperimentalAPI
 
+@OptIn(KoinExperimentalAPI::class)
 @Composable
-fun HomePage() {
-    val navigator = LocalNavigator.currentOrThrow
+fun HomePage(
+    onProfileClicked: () -> Unit
+) {
     val colors = LocalAppColors.current
     val homeViewModel: HomeViewModel = koinInject()
 
-    // Search
-    var searchText by remember { mutableStateOf("") }
-    var isSearching by remember { mutableStateOf(false) }
+    Scaffold(
+        topBar = {
 
-    fun hideSearchSuggestion() {
-        searchText = ""
-        isSearching = false
-    }
+        },
+        floatingActionButton = {
+            Column {
+                FloatingActionButton(
+                    onClick = {
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(colors.primary),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+                    },
+                    contentColor = colors.primary
+                ) {
+                    CustomIcon(icon = Icons.Outlined.Favorite, iconColor = Color.White)
+                }
+            }
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
 
+        }
     }
 }
 

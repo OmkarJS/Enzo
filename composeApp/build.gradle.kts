@@ -11,6 +11,9 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     kotlin("plugin.serialization") version "1.9.20"
+
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.androidx.room)
 }
 
 kotlin {
@@ -20,7 +23,7 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -29,6 +32,9 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "Shared"
             isStatic = true
+
+            linkerOpts.add("-framework")
+            linkerOpts.add("LocalAuthentication")
         }
     }
     
@@ -54,20 +60,20 @@ kotlin {
         binaries.executable()
     }*/
 
-    js(IR) {
+    /*js(IR) {
         browser {
             commonWebpackConfig {
                 outputFileName = "composeApp.js"
             }
         }
         binaries.executable()
-    }
-    
+    }*/
+
     sourceSets {
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
-            implementation(compose.material3)
+            implementation(compose.material)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
@@ -75,7 +81,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
 
             // Navigation
-            implementation(libs.voyager.navigator)
+            implementation(libs.androidx.navigation.compose)
 
             // Ktor Client
             implementation(libs.ktor.client.core)
@@ -97,6 +103,14 @@ kotlin {
             // Dependency Injection (Koin)
             api(libs.koin.core)
             implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+
+            // Room
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.androidx.sqlite.bundled)
+
+            // Material 3
+            implementation(compose.material3)
         }
 
         androidMain.dependencies {
@@ -109,9 +123,24 @@ kotlin {
             // Dependency Injection (Koin - Android Related)
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
-            implementation(libs.koin.compose.viewmodel)
+
+            // Room (Android related)
+            implementation(libs.androidx.room.sqlite.wrapper)
+
+            // Biometric
+            implementation(libs.biometric.android)
+
+            // CameraX
+            implementation(libs.camera.core)
+            implementation(libs.camera.camera2)
+            implementation(libs.camera.lifecycle)
+            implementation(libs.camera.extensions)
+            implementation(libs.camera.view)
         }
 
+        iosMain.dependencies {
+
+        }
 
         val desktopMain by getting {
             dependencies {
@@ -123,13 +152,14 @@ kotlin {
             }
         }
 
-        jsMain.dependencies {
+        // Removed web for now as it doesn't support room and also KMP and CMP fully.
+        /*jsMain.dependencies {
             // Ktor client - Web
             implementation(libs.ktor.client.js)
 
             // Core dependency
             implementation(compose.html.core)
-        }
+        }*/
     }
 }
 
@@ -138,7 +168,7 @@ android {
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "omkar.android.projects"
+        applicationId = "omkar.android.projects.enzo"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
@@ -158,6 +188,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
@@ -175,3 +209,16 @@ compose.desktop {
         }
     }
 }
+
+dependencies {
+    add("kspAndroid", libs.androidx.room.compiler)
+    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
+    add("kspIosX64", libs.androidx.room.compiler)
+    add("kspIosArm64", libs.androidx.room.compiler)
+    add("kspDesktop", libs.androidx.room.compiler)
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+

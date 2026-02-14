@@ -1,9 +1,9 @@
 package omkar.android.projects.app.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.darkColors
+import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
@@ -19,7 +19,8 @@ data class ThemeColors(
     val black: Color,
     val grey: Color,
     val onBackground: Color,
-    val onSurface: Color
+    val onSurface: Color,
+    val error: Color
 )
 
 val LightColorScheme = ThemeColors(
@@ -32,7 +33,8 @@ val LightColorScheme = ThemeColors(
     black = Color(0xFF000000),
     grey = Color(0xFF9E9E9E),
     onBackground = Color(0xFF000000), // Black text on background
-    onSurface = Color(0xFF000000) // Black text on surface
+    onSurface = Color(0xFF000000), // Black text on surface,
+    error = Color(0xFFB3261E)
 )
 
 val DarkColorScheme = ThemeColors(
@@ -45,29 +47,34 @@ val DarkColorScheme = ThemeColors(
     black = Color(0xFFFFFFFF),
     grey = Color(0xFFBDBDBD),
     onBackground = Color(0xFFFFFFFF), // White text on background
-    onSurface = Color(0xFFFFFFFF) // White text on surface
+    onSurface = Color(0xFFFFFFFF), // White text on surface
+    error = Color(0xFFF2B8B5)
 )
 
-fun ThemeColors.toColors() = lightColorScheme(
+fun ThemeColors.toColors() = lightColors(
     primary = primary,
+    primaryVariant = primaryVariant,
     secondary = secondary,
     background = background,
     surface = surface,
     onPrimary = white,
     onSecondary = black,
     onBackground = onBackground,
-    onSurface = onSurface
+    onSurface = onSurface,
+    error = error
 )
 
-fun ThemeColors.toDarkColors() = darkColorScheme(
+fun ThemeColors.toDarkColors() = darkColors(
     primary = primary,
+    primaryVariant = primaryVariant,
     secondary = secondary,
     background = background,
     surface = surface,
     onPrimary = white,
     onSecondary = black,
     onBackground = onBackground,
-    onSurface = onSurface
+    onSurface = onSurface,
+    error = error
 )
 
 val LocalAppColors = compositionLocalOf { LightColorScheme }
@@ -82,7 +89,7 @@ fun AppTheme(
 
     CompositionLocalProvider(LocalAppColors provides colors) {
         MaterialTheme(
-            colorScheme = materialColors,
+            colors = materialColors,
             content = content
         )
     }

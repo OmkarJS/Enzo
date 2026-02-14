@@ -1,44 +1,36 @@
 package omkar.android.projects.presentation.profile
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
-import omkar.android.projects.app.theme.LocalAppColors
+import androidx.compose.ui.unit.dp
+import omkar.android.projects.app.components.MediumSpacer
+import omkar.android.projects.app.widget.icon.CustomIcon
 
 @Composable
-fun ProfilePage() {
-    val navigator = LocalNavigator.currentOrThrow
-    val colors = LocalAppColors.current
-
+fun ProfilePage(
+    onBackPressed: () -> Unit
+) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize().padding(10.dp)
     ) {
-        Row(modifier = Modifier.fillMaxWidth()) {
-            Icon(
-                imageVector = Icons.Default.ArrowBack,
-                contentDescription = "Search Icon",
-                tint = colors.black,
-                modifier = Modifier.clickable {
-                    navigator.pop()
-                }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 10.dp)
+        ) {
+            CustomIcon(
+                icon = Icons.Default.ArrowBack,
+                onClick = { onBackPressed() }
             )
         }
 
-        Text(
-            "Profile",
-            modifier = Modifier
-                .weight(1f)
-                .clickable { navigator.pop() }
-        )
+        MediumSpacer()
     }
 }

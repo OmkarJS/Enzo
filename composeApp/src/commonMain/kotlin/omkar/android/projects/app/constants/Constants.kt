@@ -1,6 +1,10 @@
 package omkar.android.projects.app.constants
 
 class Constants {
+    object Routes {
+        const val HOME = "home"
+        const val PROFILE = "profile"
+    }
 
     object Screen {
         const val HOME_PAGE = "Home"
