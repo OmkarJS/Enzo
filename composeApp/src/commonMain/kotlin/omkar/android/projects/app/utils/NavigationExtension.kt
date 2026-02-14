@@ -10,3 +10,7 @@ fun NavController.navigateToHomeScreen() {
 fun NavController.navigateToProfileScreen() {
     this.navigate(Constants.Routes.PROFILE)
 }
+
+fun NavController.navigateToVisualScreen() {
+    this.navigate(Constants.Routes.VISUAL_SCREEN)
+}

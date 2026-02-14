@@ -1,5 +1,6 @@
 package omkar.android.projects.app.components
 
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -8,7 +9,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
-import enzo.composeapp.generated.resources.Res
 import omkar.android.projects.app.theme.LocalAppColors
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
@@ -44,7 +44,7 @@ private fun BaseText(
         else -> "Hello World"
     }
 
-    androidx.compose.material.Text(
+    Text(
         text = if (config.uppercase) textToBeUsed.uppercase() else textToBeUsed,
         modifier = config.modifier,
         color = colorToBeUsed,

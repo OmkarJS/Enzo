@@ -4,6 +4,7 @@ class Constants {
     object Routes {
         const val HOME = "home"
         const val PROFILE = "profile"
+        const val VISUAL_SCREEN = "visuals"
     }
 
     object Screen {

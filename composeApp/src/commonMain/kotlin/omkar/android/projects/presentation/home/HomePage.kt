@@ -14,13 +14,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import omkar.android.projects.app.theme.LocalAppColors
 import omkar.android.projects.app.widget.icon.CustomIcon
+import omkar.android.projects.presentation.camera.PlatformCameraPreview
 import org.koin.compose.koinInject
 import org.koin.core.annotation.KoinExperimentalAPI
 
 @OptIn(KoinExperimentalAPI::class)
 @Composable
 fun HomePage(
-    onProfileClicked: () -> Unit
+    onProfileClicked: () -> Unit,
+    onCameraClicked: () -> Unit
 ) {
     val colors = LocalAppColors.current
     val homeViewModel: HomeViewModel = koinInject()
@@ -33,7 +35,7 @@ fun HomePage(
             Column {
                 FloatingActionButton(
                     onClick = {
-
+                        onCameraClicked()
                     },
                     contentColor = colors.primary
                 ) {
