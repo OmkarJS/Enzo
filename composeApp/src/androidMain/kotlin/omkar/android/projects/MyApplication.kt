@@ -1,14 +1,14 @@
 package omkar.android.projects
 
 import android.app.Application
-import omkar.android.projects.app.di.commonModule
-import org.koin.core.context.startKoin
+import omkar.android.projects.app.utils.KoinUtils
+import org.koin.android.ext.koin.androidContext
 
 class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        startKoin {
-            modules(commonModule)
+        KoinUtils.startKoinProcess {
+            androidContext(this@MyApplication)
         }
     }
 }
