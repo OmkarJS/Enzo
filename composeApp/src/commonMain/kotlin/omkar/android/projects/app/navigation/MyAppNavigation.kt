@@ -12,10 +12,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import co.touchlab.kermit.Logger
 import omkar.android.projects.app.constants.Constants
+import omkar.android.projects.app.constants.Constants.Routes
 import omkar.android.projects.app.theme.LocalAppColors
 import omkar.android.projects.app.utils.navigateToProfileScreen
+import omkar.android.projects.app.utils.navigateToVisualScreen
 import omkar.android.projects.presentation.home.HomePage
 import omkar.android.projects.presentation.profile.ProfilePage
+import omkar.android.projects.presentation.visuals.VisualScreen
 
 @Composable
 fun MyAppNavigation() {
@@ -23,22 +26,33 @@ fun MyAppNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = Constants.Routes.HOME,
+        startDestination = Routes.HOME,
         modifier = Modifier
             .fillMaxSize()
             .background(LocalAppColors.current.background)
             .windowInsetsPadding(WindowInsets.systemBars)
     ) {
-        composable(Constants.Routes.HOME) {
+        composable(Routes.HOME) {
             HomePage(
                 onProfileClicked = {
                     navController.navigateToProfileScreen()
+                },
+                onCameraClicked = {
+                    navController.navigateToVisualScreen()
                 }
             )
         }
 
-        composable(Constants.Routes.PROFILE) {
+        composable(Routes.PROFILE) {
             ProfilePage(
+                onBackPressed = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable(Routes.VISUAL_SCREEN) {
+            VisualScreen(
                 onBackPressed = {
                     navController.popBackStack()
                 }

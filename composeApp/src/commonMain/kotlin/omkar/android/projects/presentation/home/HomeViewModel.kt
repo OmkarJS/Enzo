@@ -6,30 +6,18 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import omkar.android.projects.app.utils.ApiResponseWrapper
-import omkar.android.projects.domain.usecases.ExampleUseCase
 import omkar.android.projects.app.expectuals.getViewModelScope
+import omkar.android.projects.domain.repository.VisualInputSource
+import omkar.android.projects.domain.usecases.CorticalLoopUseCase
 
 class HomeViewModel(
-    private val exampleUseCase: ExampleUseCase
+    private val corticalLoopUseCase: CorticalLoopUseCase
 ) {
     private val viewModelScope: CoroutineScope = getViewModelScope()
 
-    // Example State
-    private val _exampleState = MutableStateFlow("")
-    val exampleState: StateFlow<String> = _exampleState.asStateFlow()
-
-    // Example Network call from usecase
-    fun fetch() {
+    fun startCorticalLoop(source: VisualInputSource) {
         viewModelScope.launch {
-            when(exampleUseCase.invoke()) {
-                is ApiResponseWrapper.Success -> {}
-
-                is ApiResponseWrapper.Failure -> {}
-
-                is ApiResponseWrapper.NetworkError -> {}
-
-                is ApiResponseWrapper.UnknownError -> {}
-            }
+            corticalLoopUseCase.invoke(source)
         }
     }
 }
