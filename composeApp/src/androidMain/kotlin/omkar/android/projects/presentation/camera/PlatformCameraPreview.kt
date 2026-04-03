@@ -4,23 +4,29 @@ import androidx.camera.view.PreviewView
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.DisposableEffectScope
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import omkar.android.projects.shared.camera.CameraController
+import omkar.android.projects.data.source.CameraDataSource
+import omkar.android.projects.domain.repository.VisualInputSource
+import org.koin.core.parameter.parametersOf
 import kotlin.apply
+import org.koin.compose.koinInject
 
 @Composable
-actual fun PlatformCameraPreview() {
-    CameraPreview()
+actual fun PlatformCameraPreview(
+    onStartCamera: (VisualInputSource) -> Unit
+) {
+    CameraPreview(onStartCamera)
 }
 
 @Composable
-fun CameraPreview() {
+fun CameraPreview(
+    onStartCamera: (VisualInputSource) -> Unit
+) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -30,21 +36,18 @@ fun CameraPreview() {
         }
     }
 
-    val cameraController = remember {
-        CameraController(
-            previewView = previewView,
-            lifecycleOwner = lifecycleOwner,
-            context = context
-        )
+    val cameraDataSource: CameraDataSource = koinInject<CameraDataSource> {
+        parametersOf(context, lifecycleOwner, previewView)
     }
 
     LaunchedEffect(Unit) {
-        cameraController.startCamera()
+        cameraDataSource.startCamera()
+        onStartCamera(cameraDataSource)
     }
 
     DisposableEffect(Unit) {
         onDispose {
-            cameraController.stopCamera()
+            cameraDataSource.stopCamera()
         }
     }
 

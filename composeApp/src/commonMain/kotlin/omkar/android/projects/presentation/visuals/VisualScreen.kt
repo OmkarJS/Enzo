@@ -9,20 +9,29 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import omkar.android.projects.app.widget.icon.CustomIcon
 import omkar.android.projects.presentation.camera.PlatformCameraPreview
+import omkar.android.projects.presentation.home.HomeViewModel
+import org.koin.compose.koinInject
 
 @Composable
 fun VisualScreen(
     onBackPressed: () -> Unit
 ) {
+    val homeViewModel: HomeViewModel = koinInject()
+
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        PlatformCameraPreview()
+        PlatformCameraPreview(
+            onStartCamera = { source ->
+                homeViewModel.startCorticalLoop(source)
+            }
+        )
 
         Row(
             modifier = Modifier
