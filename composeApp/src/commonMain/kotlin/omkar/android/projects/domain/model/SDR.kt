@@ -7,8 +7,6 @@ data class SDR(
     val activeBits: IntArray
 ) {
     init {
-        require(activeBits.isNotEmpty()) { "SDR cannot be empty" }
-
         activeBits.sort()
 
         require(activeBits.toSet().size == activeBits.size) {

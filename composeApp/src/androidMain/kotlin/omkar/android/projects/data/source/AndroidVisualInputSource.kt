@@ -14,15 +14,17 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import omkar.android.projects.domain.model.sensory.VisualInput
-import omkar.android.projects.domain.repository.VisualInputSource
+import omkar.android.projects.domain.repository.inputsource.VisualInputSource
+import omkar.android.projects.domain.repository.pose.IPoseSource
 import java.util.concurrent.Executors
 
 private const val TAG = "CameraDataSource"
 
-actual class CameraDataSource (
+actual class AndroidVisualInputSource (
     private val context: Context,
     private val lifecycleOwner: LifecycleOwner,
-    private val previewView: PreviewView
+    private val previewView: PreviewView,
+    private val poseSource: IPoseSource
 ): VisualInputSource {
 
     private val _visualInputs = MutableSharedFlow<VisualInput>(extraBufferCapacity = 1)
@@ -62,7 +64,7 @@ actual class CameraDataSource (
 
             val visualInput = VisualInput(
                 brightness = brightness,
-                /*motion = 0*/
+                pose = poseSource.currentPose
             )
 
             Logger.withTag(TAG).d("startAnalyser: Visual Input - $visualInput")
@@ -76,6 +78,7 @@ actual class CameraDataSource (
 
     actual override fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
+        poseSource.start()
 
         cameraProviderFuture.addListener({
             val cameraProvider = cameraProviderFuture.get()
@@ -102,6 +105,7 @@ actual class CameraDataSource (
     }
 
     actual override fun stopCamera() {
+        poseSource.stop()
         ProcessCameraProvider.getInstance(context).get().unbindAll()
     }
 }

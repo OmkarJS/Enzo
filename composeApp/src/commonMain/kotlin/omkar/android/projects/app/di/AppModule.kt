@@ -1,27 +1,30 @@
 package omkar.android.projects.app.di
 
 
-import omkar.android.projects.app.expectuals.HttpClientEngine
-import omkar.android.projects.data.remote.ExampleClient
-import omkar.android.projects.data.repository.ExampleRepositoryImpl
+import omkar.android.projects.data.repository.spatialpooler.SpatialPoolerImpl
+import omkar.android.projects.data.repository.temporalmemory.TemporalMemoryImpl
 import omkar.android.projects.domain.encoder.VisualEncoder
-import omkar.android.projects.domain.repository.ExampleRepository
-import omkar.android.projects.domain.repository.SensoryEncoder
+import omkar.android.projects.domain.repository.encoders.SensoryEncoder
+import omkar.android.projects.domain.repository.spatialpooler.ISpatialPooler
+import omkar.android.projects.domain.repository.temporalmemory.ITemporalMemory
 import omkar.android.projects.domain.usecases.CorticalLoopUseCase
 import omkar.android.projects.presentation.home.HomeViewModel
 import org.koin.dsl.module
 
 val commonModule = module {
     // Repository
-    single<ExampleRepository> { ExampleRepositoryImpl(get()) }
     single<SensoryEncoder> { VisualEncoder() }
+    single<ISpatialPooler> { SpatialPoolerImpl() }
+    single<ITemporalMemory> { TemporalMemoryImpl() }
 
     // Usecase
-    factory { CorticalLoopUseCase(get()) }
-
-    // Client
-    val httpClient = HttpClientEngine().create()
-    single { ExampleClient(httpClient = httpClient) }
+    factory {
+        CorticalLoopUseCase(
+            get(),
+            get(),
+            get()
+        )
+    }
 
     // Viewmodel
     factory { HomeViewModel(get()) }

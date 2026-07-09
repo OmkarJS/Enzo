@@ -1,10 +1,12 @@
 package omkar.android.projects.domain.model.sensory
 
+import omkar.android.projects.data.model.pose.Pose
+
 sealed interface SensoryInput
 
 data class VisualInput(
     val brightness: Int,
-    /*val motion: Int*/
+    val pose: Pose
 ): SensoryInput
 
 data class AudioInput(
