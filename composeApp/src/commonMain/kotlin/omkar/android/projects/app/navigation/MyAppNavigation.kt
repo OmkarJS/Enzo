@@ -10,12 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import co.touchlab.kermit.Logger
-import omkar.android.projects.app.constants.Constants
 import omkar.android.projects.app.constants.Constants.Routes
 import omkar.android.projects.app.theme.LocalAppColors
+import omkar.android.projects.app.utils.navigateToBitForgeScreen
 import omkar.android.projects.app.utils.navigateToProfileScreen
 import omkar.android.projects.app.utils.navigateToVisualScreen
+import omkar.android.projects.presentation.bitforge.BitForgePage
 import omkar.android.projects.presentation.home.HomePage
 import omkar.android.projects.presentation.profile.ProfilePage
 import omkar.android.projects.presentation.visuals.VisualScreen
@@ -39,6 +39,9 @@ fun MyAppNavigation() {
                 },
                 onCameraClicked = {
                     navController.navigateToVisualScreen()
+                },
+                onBitForgeClick = {
+                    navController.navigateToBitForgeScreen()
                 }
             )
         }
@@ -53,6 +56,14 @@ fun MyAppNavigation() {
 
         composable(Routes.VISUAL_SCREEN) {
             VisualScreen(
+                onBackPressed = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable(Routes.BIT_FORGE_SCREEN) {
+            BitForgePage (
                 onBackPressed = {
                     navController.popBackStack()
                 }

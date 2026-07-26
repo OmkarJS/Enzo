@@ -6,14 +6,6 @@ data class SDR(
     val size: Int = SDR_SIZE,
     val activeBits: IntArray
 ) {
-    init {
-        activeBits.sort()
-
-        require(activeBits.toSet().size == activeBits.size) {
-            "SDR bits must be unique"
-        }
-    }
-
     fun overlap(other: SDR): Int {
         var i = 0
         var j = 0

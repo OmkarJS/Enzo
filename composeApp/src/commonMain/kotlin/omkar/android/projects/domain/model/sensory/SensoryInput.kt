@@ -14,9 +14,3 @@ data class AudioInput(
     val position: Int,
     val motion: Int
 ): SensoryInput
-
-data class TouchInput(
-    val brightness: Int,
-    val position: Int,
-    val motion: Int
-): SensoryInput
