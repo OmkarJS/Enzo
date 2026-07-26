@@ -5,6 +5,7 @@ class Constants {
         const val HOME = "home"
         const val PROFILE = "profile"
         const val VISUAL_SCREEN = "visuals"
+        const val BIT_FORGE_SCREEN = "bitforge"
     }
 
     object Screen {
@@ -19,6 +20,7 @@ class Constants {
 
     object SdrConstants {
         const val SDR_SIZE = 2048
+        const val ACTIVE_BITS = 32
 
         // Vision
         const val VISION_START = 0

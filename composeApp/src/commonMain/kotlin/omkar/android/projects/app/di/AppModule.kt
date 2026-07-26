@@ -1,32 +1,54 @@
 package omkar.android.projects.app.di
 
 
-import omkar.android.projects.app.expectuals.HttpClientEngine
-import omkar.android.projects.data.remote.ExampleClient
-import omkar.android.projects.data.repository.ExampleRepositoryImpl
+import omkar.android.projects.data.repository.spatialpooler.SpatialPoolerImpl
+import omkar.android.projects.data.repository.temporalmemory.TemporalMemoryImpl
+import omkar.android.projects.domain.encoder.TouchEncoder
 import omkar.android.projects.domain.encoder.VisualEncoder
-import omkar.android.projects.domain.repository.ExampleRepository
-import omkar.android.projects.domain.repository.SensoryEncoder
+import omkar.android.projects.domain.repository.encoders.ITouchEncoder
+import omkar.android.projects.domain.repository.encoders.SensoryEncoder
+import omkar.android.projects.domain.repository.spatialpooler.ISpatialPooler
+import omkar.android.projects.domain.repository.temporalmemory.ITemporalMemory
+import omkar.android.projects.domain.usecases.BitForgeUseCase
 import omkar.android.projects.domain.usecases.CorticalLoopUseCase
+import omkar.android.projects.presentation.bitforge.BitForgeViewmodel
 import omkar.android.projects.presentation.home.HomeViewModel
 import org.koin.dsl.module
 
+/**
+ - factory {
+       Returns new viewmodel instance every time this is called. Add if needed.
+   }
+
+ - single - One instance
+ */
+
 val commonModule = module {
     // Repository
-    single<ExampleRepository> { ExampleRepositoryImpl(get()) }
     single<SensoryEncoder> { VisualEncoder() }
+    single<ISpatialPooler> { SpatialPoolerImpl() }
+    single<ITemporalMemory> { TemporalMemoryImpl() }
+    single<ITouchEncoder> { TouchEncoder() }
 
     // Usecase
-    factory { CorticalLoopUseCase(get()) }
+    factory {
+        CorticalLoopUseCase(
+            get(),
+            get(),
+            get()
+        )
+    }
 
-    // Client
-    val httpClient = HttpClientEngine().create()
-    single { ExampleClient(httpClient = httpClient) }
+    factory {
+        BitForgeUseCase(
+            get()
+        )
+    }
 
     // Viewmodel
     factory { HomeViewModel(get()) }
 
     factory {
-        // Returns new viewmodel instance every time this is called. Add if needed.
+        BitForgeViewmodel(get())
     }
 }

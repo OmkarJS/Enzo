@@ -1,4 +1,4 @@
-package omkar.android.projects.domain.repository
+package omkar.android.projects.domain.repository.inputsource
 
 import kotlinx.coroutines.flow.Flow
 import omkar.android.projects.domain.model.sensory.VisualInput

@@ -10,8 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import omkar.android.projects.data.source.CameraDataSource
-import omkar.android.projects.domain.repository.VisualInputSource
+import omkar.android.projects.domain.repository.inputsource.VisualInputSource
 import org.koin.core.parameter.parametersOf
 import kotlin.apply
 import org.koin.compose.koinInject
@@ -36,8 +35,8 @@ fun CameraPreview(
         }
     }
 
-    val cameraDataSource: CameraDataSource = koinInject<CameraDataSource> {
-        parametersOf(context, lifecycleOwner, previewView)
+    val cameraDataSource: VisualInputSource = koinInject<VisualInputSource> {
+        parametersOf(  lifecycleOwner, previewView)
     }
 
     LaunchedEffect(Unit) {

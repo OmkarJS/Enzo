@@ -14,3 +14,7 @@ fun NavController.navigateToProfileScreen() {
 fun NavController.navigateToVisualScreen() {
     this.navigate(Constants.Routes.VISUAL_SCREEN)
 }
+
+fun NavController.navigateToBitForgeScreen() {
+    this.navigate(Constants.Routes.BIT_FORGE_SCREEN)
+}
